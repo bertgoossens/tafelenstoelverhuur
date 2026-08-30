@@ -1,0 +1,1194 @@
+<title>Tafelenstoel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Karla:ital,wght@0,300..800;1,300..700&display=swap">
+
+<style>
+/* ============================================================
+   TAFELENSTOEL — palet uit de foto's:
+   gewassen linnen · bosgroen · honingbeuken · korenbloemblauw
+   ============================================================ */
+
+:root{
+  /* --- licht palet (volledig) --- */
+  --ground:#EDEEE4;
+  --ground-2:#E4E6D9;
+  --surface:#FBFBF5;
+  --surface-2:#F4F5EB;
+  --ink:#1E2C21;
+  --ink-2:#42513F;
+  --ink-3:#6B7867;
+  --wood:#B8873F;
+  --wood-soft:#E8D6B6;
+  --accent:#2F5FA4;
+  --accent-2:#1F4680;
+  --accent-soft:#D9E4F2;
+  --on-accent:#FBFBF5;
+  --line:#D3D6C6;
+  --line-warm:#C9B48A;
+  --paper:#FCFBF3;
+  --shadow:18 34 22;
+  --shadow-a:.10;
+  --shadow-a2:.16;
+
+  --f-display:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+  --f-body:"Karla","Helvetica Neue",Arial,sans-serif;
+
+  --wrap:1180px;
+  --r-s:4px;
+  --r-m:10px;
+  --r-l:18px;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#131A13;
+    --ground-2:#0E140F;
+    --surface:#1C251D;
+    --surface-2:#232D24;
+    --ink:#E9ECDE;
+    --ink-2:#BDC6B6;
+    --ink-3:#8E9A8B;
+    --wood:#D8AE6C;
+    --wood-soft:#4A3E28;
+    --accent:#8DB2E6;
+    --accent-2:#B4CDF2;
+    --accent-soft:#22334C;
+    --on-accent:#0F1710;
+    --line:#313D31;
+    --line-warm:#5A4B31;
+    --paper:#20291F;
+    --shadow:0 0 0;
+    --shadow-a:.34;
+    --shadow-a2:.5;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#131A13;
+  --ground-2:#0E140F;
+  --surface:#1C251D;
+  --surface-2:#232D24;
+  --ink:#E9ECDE;
+  --ink-2:#BDC6B6;
+  --ink-3:#8E9A8B;
+  --wood:#D8AE6C;
+  --wood-soft:#4A3E28;
+  --accent:#8DB2E6;
+  --accent-2:#B4CDF2;
+  --accent-soft:#22334C;
+  --on-accent:#0F1710;
+  --line:#313D31;
+  --line-warm:#5A4B31;
+  --paper:#20291F;
+  --shadow:0 0 0;
+  --shadow-a:.34;
+  --shadow-a2:.5;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--f-display);
+  font-variation-settings:"SOFT" 45,"WONK" 1;
+  font-weight:600;
+  line-height:1.08;
+  text-wrap:balance;
+  margin:0;
+  letter-spacing:-.012em;
+}
+
+p{margin:0;}
+img{max-width:100%;display:block;}
+
+a{color:var(--accent-2);text-decoration-thickness:1px;text-underline-offset:3px;}
+a:hover{color:var(--accent);}
+
+:focus-visible{
+  outline:2.5px solid var(--accent);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
+.wrap{
+  width:min(var(--wrap),calc(100% - 2.5rem));
+  margin-inline:auto;
+}
+
+.eyebrow{
+  font-family:var(--f-body);
+  font-size:.735rem;
+  font-weight:700;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--wood);
+  margin:0;
+}
+
+.lede{
+  font-size:1.16rem;
+  color:var(--ink-2);
+  max-width:60ch;
+}
+
+/* --- naaigaren-scheiding, als de zoom van een tafellaken --- */
+.stitch{
+  border:0;
+  border-top:1.5px dashed var(--line-warm);
+  opacity:.75;
+  margin:0;
+}
+
+/* ======================= NAVIGATIE ======================= */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--ground) 88%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{
+  display:flex;align-items:center;gap:1.4rem;
+  padding:.7rem 0;
+}
+.brand{
+  font-family:var(--f-display);
+  font-variation-settings:"SOFT" 60,"WONK" 1;
+  font-weight:700;
+  font-size:1.28rem;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  text-decoration:none;
+  margin-right:auto;
+  display:flex;align-items:baseline;gap:.5rem;
+}
+.brand .dot{
+  width:.44rem;height:.44rem;border-radius:50%;
+  background:var(--accent);
+  display:inline-block;
+  translate:0 -.15rem;
+}
+.navlinks{display:flex;gap:1.5rem;}
+.navlinks a{
+  color:var(--ink-2);text-decoration:none;
+  font-size:.93rem;font-weight:500;
+  padding:.25rem 0;
+  border-bottom:1.5px solid transparent;
+}
+.navlinks a:hover{color:var(--ink);border-bottom-color:var(--wood);}
+@media (max-width:760px){.navlinks{display:none;}}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--f-body);
+  font-size:.93rem;font-weight:700;
+  letter-spacing:.01em;
+  padding:.62rem 1.15rem;
+  border-radius:100px;
+  border:1.5px solid transparent;
+  cursor:pointer;
+  text-decoration:none;
+  transition:background .18s,color .18s,border-color .18s,transform .18s;
+}
+.btn-primary{background:var(--accent);color:var(--on-accent);}
+.btn-primary:hover{background:var(--accent-2);color:var(--on-accent);transform:translateY(-1px);}
+.btn-ghost{border-color:var(--line-warm);color:var(--ink);background:transparent;}
+.btn-ghost:hover{background:var(--wood-soft);border-color:var(--wood);color:var(--ink);transform:translateY(-1px);}
+
+/* ======================= HERO ======================= */
+.hero{
+  position:relative;
+  min-height:min(84vh,760px);
+  display:grid;
+  align-items:end;
+  overflow:hidden;
+  background:var(--ground-2);
+}
+.hero-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 62%;
+  animation:drift 26s ease-out forwards;
+}
+@keyframes drift{from{transform:scale(1.06);}to{transform:scale(1);}}
+.hero-veil{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(14,22,14,.86) 0%,rgba(14,22,14,.55) 34%,rgba(14,22,14,.12) 66%,rgba(14,22,14,.30) 100%);
+}
+.hero-in{
+  position:relative;
+  padding:3.2rem 0 3.4rem;
+  color:#F3F2E6;
+  display:grid;gap:1.15rem;
+  max-width:44rem;
+}
+.hero-in .eyebrow{color:#E2C58E;}
+.hero h1{
+  font-size:clamp(3rem,8.5vw,5.9rem);
+  font-weight:500;
+  letter-spacing:-.03em;
+  font-variation-settings:"SOFT" 70,"WONK" 1;
+  color:#FBFAF0;
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:400;
+  color:#E9CE9B;
+}
+.hero p{color:#DEDFCE;font-size:1.12rem;max-width:48ch;}
+.hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.45rem;}
+.hero .btn-ghost{border-color:rgba(243,242,230,.5);color:#F3F2E6;}
+.hero .btn-ghost:hover{background:rgba(243,242,230,.13);border-color:#F3F2E6;color:#F3F2E6;}
+
+.hero-stock{
+  position:relative;
+  display:flex;gap:0;flex-wrap:wrap;
+  border-top:1px solid rgba(243,242,230,.22);
+}
+.hero-stock div{
+  flex:1 1 8rem;
+  padding:.95rem 1.1rem .95rem 0;
+  color:#DEDFCE;
+  font-size:.86rem;
+}
+.hero-stock b{
+  display:block;
+  font-family:var(--f-display);
+  font-variation-settings:"SOFT" 50,"WONK" 1;
+  font-size:1.65rem;font-weight:600;
+  color:#F3F2E6;
+  font-variant-numeric:tabular-nums;
+  line-height:1.2;
+}
+
+/* ======================= SECTIES ======================= */
+section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
+.sec-head{display:grid;gap:.85rem;max-width:52rem;margin-bottom:2.6rem;}
+.sec-head h2{font-size:clamp(1.9rem,4.2vw,2.9rem);}
+
+/* --- het aanbod --- */
+.goods{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+  gap:1.6rem;
+}
+.good{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--r-l);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.good:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 34px -14px rgb(var(--shadow)/var(--shadow-a2));
+  border-color:var(--line-warm);
+}
+.good-media{position:relative;aspect-ratio:4/5;background:var(--ground-2);}
+.good-media img{width:100%;height:100%;object-fit:cover;}
+.qty{
+  position:absolute;top:.85rem;left:.85rem;
+  background:var(--paper);
+  color:var(--ink);
+  border:1.5px solid var(--line-warm);
+  border-radius:100px;
+  padding:.24rem .72rem;
+  font-size:.78rem;font-weight:700;
+  letter-spacing:.04em;
+  font-variant-numeric:tabular-nums;
+  box-shadow:0 3px 10px -4px rgb(var(--shadow)/var(--shadow-a2));
+}
+.good-body{padding:1.25rem 1.3rem 1.4rem;display:grid;gap:.55rem;flex:1;}
+.good-body h3{font-size:1.36rem;}
+.good-body p{color:var(--ink-2);font-size:.955rem;}
+.good-price{
+  margin-top:auto;padding-top:.9rem;
+  border-top:1px dashed var(--line-warm);
+  display:flex;align-items:baseline;gap:.42rem;
+  font-variant-numeric:tabular-nums;
+}
+.good-price .amt{
+  font-family:var(--f-display);
+  font-variation-settings:"SOFT" 40,"WONK" 0;
+  font-size:1.5rem;font-weight:600;
+  color:var(--ink);
+}
+.good-price .per{font-size:.86rem;color:var(--ink-3);}
+
+/* --- werkwijze: echte volgorde, dus genummerd --- */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1.1rem;
+}
+.step{
+  padding:1.5rem 1.4rem;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:var(--r-m);
+  display:grid;gap:.5rem;
+  align-content:start;
+}
+.step .num{
+  font-family:var(--f-display);
+  font-variation-settings:"SOFT" 60,"WONK" 1;
+  font-size:2.1rem;font-weight:400;
+  color:var(--wood);
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.step h3{font-size:1.14rem;}
+.step p{font-size:.94rem;color:var(--ink-2);}
+
+/* ======================= BESTELBRIEFJE ======================= */
+.order-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:2.2rem;
+  align-items:start;
+}
+@media (max-width:900px){.order-grid{grid-template-columns:1fr;}}
+
+.slip{
+  position:relative;
+  background:var(--paper);
+  border:1px solid var(--line-warm);
+  border-radius:var(--r-m);
+  padding:1.7rem 1.6rem 1.5rem;
+  box-shadow:0 20px 44px -22px rgb(var(--shadow)/var(--shadow-a2));
+}
+.slip::before{
+  content:"";position:absolute;inset:.42rem;
+  border:1px dashed var(--line-warm);
+  border-radius:6px;pointer-events:none;opacity:.55;
+}
+.slip-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;margin-bottom:1.15rem;
+}
+.slip-head h3{font-size:1.5rem;}
+.slip-head span{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:700;}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  align-items:center;
+  gap:.9rem;
+  padding:.72rem 0;
+  border-bottom:1px dashed var(--line);
+}
+.row:last-of-type{border-bottom:0;}
+.row-name{display:grid;gap:.1rem;min-width:0;}
+.row-name b{font-weight:700;font-size:1rem;}
+.row-name small{color:var(--ink-3);font-size:.8rem;font-variant-numeric:tabular-nums;}
+
+.stepper{display:flex;align-items:center;gap:.3rem;}
+.stepper button{
+  width:2rem;height:2rem;
+  border-radius:50%;
+  border:1.5px solid var(--line-warm);
+  background:var(--surface);
+  color:var(--ink);
+  font-size:1.05rem;line-height:1;
+  font-family:var(--f-body);font-weight:700;
+  cursor:pointer;
+  display:grid;place-items:center;
+  transition:background .15s,border-color .15s,transform .12s;
+}
+.stepper button:hover:not(:disabled){background:var(--wood-soft);border-color:var(--wood);}
+.stepper button:active:not(:disabled){transform:scale(.92);}
+.stepper button:disabled{opacity:.34;cursor:not-allowed;}
+.stepper input{
+  width:3.3rem;text-align:center;
+  font-family:var(--f-body);font-size:1rem;font-weight:700;
+  font-variant-numeric:tabular-nums;
+  background:transparent;color:var(--ink);
+  border:0;border-bottom:1.5px solid var(--line);
+  padding:.2rem 0;
+  -moz-appearance:textfield;
+}
+.stepper input::-webkit-outer-spin-button,
+.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.stepper input:focus{border-bottom-color:var(--accent);}
+
+.row-sum{
+  min-width:5.2rem;text-align:right;
+  font-variant-numeric:tabular-nums;
+  font-weight:700;font-size:1rem;
+  color:var(--ink-2);
+}
+.row.is-on .row-sum{color:var(--accent-2);}
+
+.slip-total{
+  margin-top:1.1rem;padding-top:1.05rem;
+  border-top:2px solid var(--ink);
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+}
+.slip-total .lbl{font-weight:700;font-size:.95rem;}
+.slip-total .val{
+  font-family:var(--f-display);
+  font-variation-settings:"SOFT" 40,"WONK" 0;
+  font-size:2.2rem;font-weight:600;
+  font-variant-numeric:tabular-nums;
+  color:var(--ink);
+  line-height:1;
+}
+.slip-note{margin-top:.55rem;font-size:.8rem;color:var(--ink-3);}
+
+/* --- formulier --- */
+.form-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--r-l);
+  padding:1.7rem 1.6rem;
+}
+.fields{display:grid;gap:1.05rem;}
+.field{display:grid;gap:.34rem;}
+.field label{
+  font-size:.76rem;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.field input,.field textarea,.field select{
+  font-family:var(--f-body);font-size:1rem;
+  color:var(--ink);
+  background:var(--surface-2);
+  border:1.5px solid var(--line);
+  border-radius:var(--r-s);
+  padding:.62rem .78rem;
+  width:100%;
+}
+.field textarea{resize:vertical;min-height:5rem;line-height:1.55;}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--accent);outline:none;
+  box-shadow:0 0 0 3px var(--accent-soft);
+}
+.field-2{display:grid;grid-template-columns:1fr 1fr;gap:1.05rem;}
+@media (max-width:520px){.field-2{grid-template-columns:1fr;}}
+
+.radio-set{display:flex;gap:.5rem;flex-wrap:wrap;}
+.radio-set label{
+  display:flex;align-items:center;gap:.45rem;
+  border:1.5px solid var(--line);
+  background:var(--surface-2);
+  border-radius:100px;
+  padding:.45rem .9rem;
+  cursor:pointer;
+  font-size:.88rem;font-weight:600;
+  letter-spacing:0;text-transform:none;color:var(--ink-2);
+  transition:border-color .15s,background .15s,color .15s;
+}
+.radio-set input{accent-color:var(--accent);margin:0;}
+.radio-set label:has(input:checked){
+  border-color:var(--accent);background:var(--accent-soft);color:var(--ink);
+}
+
+.form-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.3rem;align-items:center;}
+.copy-ok{font-size:.85rem;color:var(--accent-2);font-weight:700;opacity:0;transition:opacity .2s;}
+.copy-ok.show{opacity:1;}
+
+.preview{
+  margin-top:1.2rem;
+  border-top:1px dashed var(--line-warm);
+  padding-top:1rem;
+}
+.preview summary{
+  cursor:pointer;font-size:.85rem;font-weight:700;
+  color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;
+}
+.preview summary:hover{color:var(--ink);}
+.preview pre{
+  margin:.8rem 0 0;
+  white-space:pre-wrap;word-break:break-word;
+  font-family:var(--f-body);font-size:.87rem;line-height:1.6;
+  color:var(--ink-2);
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:var(--r-s);
+  padding:.85rem .9rem;
+  max-height:16rem;overflow:auto;
+}
+
+/* ======================= PRAKTISCH ======================= */
+.practical{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
+  gap:2.4rem;align-items:center;
+}
+@media (max-width:860px){.practical{grid-template-columns:1fr;}}
+.facts{display:grid;gap:0;}
+.fact{
+  display:grid;grid-template-columns:9.5rem 1fr;gap:1.2rem;
+  padding:1.05rem 0;
+  border-bottom:1px dashed var(--line-warm);
+  align-items:start;
+}
+.fact:first-child{border-top:1px dashed var(--line-warm);}
+.fact dt{
+  font-size:.78rem;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--wood);
+  padding-top:.22rem;
+}
+.fact dd{margin:0;color:var(--ink-2);font-size:.98rem;}
+@media (max-width:560px){.fact{grid-template-columns:1fr;gap:.25rem;}}
+
+.practical-media{
+  border-radius:var(--r-l);overflow:hidden;
+  border:1px solid var(--line);
+  aspect-ratio:4/5;
+  box-shadow:0 18px 40px -22px rgb(var(--shadow)/var(--shadow-a2));
+}
+.practical-media img{width:100%;height:100%;object-fit:cover;}
+
+/* --- slotband --- */
+.closer{
+  background:var(--ground-2);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.closer-in{display:grid;gap:1.1rem;max-width:40rem;}
+.closer h2{font-size:clamp(1.75rem,3.6vw,2.5rem);}
+
+footer{padding:2.6rem 0 3.4rem;}
+.foot{
+  display:flex;gap:1.4rem;flex-wrap:wrap;
+  align-items:baseline;justify-content:space-between;
+  font-size:.88rem;color:var(--ink-3);
+}
+.foot a{color:var(--ink-2);}
+
+/* --- thema-schakelaar --- */
+.theme-btn{
+  width:2.3rem;height:2.3rem;border-radius:50%;
+  border:1.5px solid var(--line);
+  background:transparent;color:var(--ink-2);
+  cursor:pointer;display:grid;place-items:center;
+  transition:border-color .15s,color .15s,background .15s;
+  flex:none;
+}
+.theme-btn:hover{border-color:var(--wood);color:var(--ink);background:var(--wood-soft);}
+.theme-btn svg{width:1.05rem;height:1.05rem;}
+
+/* --- verschijnen bij scrollen --- */
+.rise{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.rise.in{opacity:1;transform:none;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  .rise{opacity:1;transform:none;}
+  .hero-img{animation:none;}
+}
+</style>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#top">tafelenstoel<span class="dot"></span></a>
+    <nav class="navlinks">
+      <a href="#aanbod">Aanbod</a>
+      <a href="#werkwijze">Zo werkt het</a>
+      <a href="#reserveren">Reserveren</a>
+      <a href="#praktisch">Praktisch</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Wissel tussen licht en donker">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+        <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"/>
+      </svg>
+    </button>
+    <a class="btn btn-primary" href="#reserveren">Reserveren</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <div class="hero">
+    <img class="hero-img" src="images/hero-tafel-klapstoelen.jpg" alt="Lange gedekte tafel met houten klapstoelen onder een treurwilg in de tuin">
+    <div class="hero-veil"></div>
+    <div class="wrap hero-in">
+      <p class="eyebrow">Verhuur · tafels, stoelen &amp; toebehoren</p>
+      <h1>Eén lange tafel,<br>en <em>iedereen</em> zit.</h1>
+      <p>Zestig beuken klapstoelen met jaren patina, twintig tafels, een barkoelkast en een haspeltafel. Genoeg om een tuin, een schuur of een straat om te toveren tot een feest.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#reserveren">Stel je bestelling samen</a>
+        <a class="btn btn-ghost" href="#aanbod">Bekijk het aanbod</a>
+      </div>
+      <div class="hero-stock" role="list">
+        <div role="listitem"><b>60</b> klapstoelen</div>
+        <div role="listitem"><b>20</b> tafels</div>
+        <div role="listitem"><b>1</b> barkoelkast</div>
+        <div role="listitem"><b>1</b> haspeltafel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== AANBOD ===================== -->
+  <section id="aanbod">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <p class="eyebrow">Het aanbod</p>
+        <h2>Vier dingen, en ze doen alle vier hun werk.</h2>
+        <p class="lede">Geen catalogus vol varianten. Wat er staat, staat er echt — en het cijfer bij elk stuk is gewoon hoeveel er zijn.</p>
+      </div>
+
+      <div class="goods">
+
+        <article class="good rise">
+          <div class="good-media">
+            <img src="images/houten-klapstoel-gras.jpg" alt="Houten klapstoel met gebogen zitting op het gras" loading="lazy">
+            <span class="qty">60 stuks</span>
+          </div>
+          <div class="good-body">
+            <h3>Beuken klapstoel</h3>
+            <p>Massief beuken, gebogen zitlatten, vlot open en dicht. Stapelt plat, dus ze passen met tientallen in een bestelwagen.</p>
+            <div class="good-price">
+              <span class="amt" data-price="chairs">€&nbsp;1,50</span>
+              <span class="per">per stoel / per dag</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="good rise">
+          <div class="good-media">
+            <img src="images/gedekte-tafel-blauwe-bloemen.jpg" alt="Gedekte tafel met wit tafellaken en borden met blauwe bloemen" loading="lazy">
+            <span class="qty">20 stuks</span>
+          </div>
+          <div class="good-body">
+            <h3>Klaptafel op onderstel</h3>
+            <p>Stevig stalen onderstel, plat opklapbaar. Zet je ze in een rij, dan krijg je die ene lange tafel waar het hele gezelschap aan past.</p>
+            <div class="good-price">
+              <span class="amt" data-price="tables">€&nbsp;6,00</span>
+              <span class="per">per tafel / per dag</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="good rise">
+          <div class="good-media">
+            <img src="images/barkoelkast.jpg" alt="Zwarte barkoelkast met drie glazen deuren, gevuld met flesjes" loading="lazy">
+            <span class="qty">1 stuk</span>
+          </div>
+          <div class="good-body">
+            <h3>Barkoelkast, drie deuren</h3>
+            <p>Verlichte glasdeuren en drie ruime vakken: bier, water en frisdrank tegelijk koud, en iedereen ziet meteen wat er is.</p>
+            <div class="good-price">
+              <span class="amt" data-price="fridge">€&nbsp;40,00</span>
+              <span class="per">per weekend</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="good rise">
+          <div class="good-media">
+            <img src="images/statafel-kabelhaspel.jpg" alt="Ronde statafel gemaakt van een houten kabelhaspel met bloemen en glazen" loading="lazy">
+            <span class="qty">1 stuk</span>
+          </div>
+          <div class="good-body">
+            <h3>Haspel als statafel</h3>
+            <p>Een echte houten kabelhaspel, verweerd tot precies de juiste grijstint. Het plekje waar het aperitief begint en niemand meer weggaat.</p>
+            <div class="good-price">
+              <span class="amt" data-price="reel">€&nbsp;15,00</span>
+              <span class="per">per weekend</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="stitch">
+
+  <!-- ===================== WERKWIJZE ===================== -->
+  <section id="werkwijze">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <p class="eyebrow">Zo werkt het</p>
+        <h2>Van aanvraag tot afwas in drie stappen.</h2>
+      </div>
+      <div class="steps">
+        <div class="step rise">
+          <span class="num">1</span>
+          <h3>Stel je bestelling samen</h3>
+          <p>Kies hieronder je aantallen en je datum. Je krijgt binnen de dag een bevestiging met de definitieve prijs.</p>
+        </div>
+        <div class="step rise">
+          <span class="num">2</span>
+          <h3>Afhalen of laten leveren</h3>
+          <p>Alles klapt plat en past in een bestelwagen. Liever niet zelf sleuren? Wij brengen het in de regio tot bij je.</p>
+        </div>
+        <div class="step rise">
+          <span class="num">3</span>
+          <h3>Terugbrengen zoals het kwam</h3>
+          <p>Geveegd en droog volstaat. Een vlek of een barst gebeurt — laat het gewoon weten, daar maken we geen drama van.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESERVEREN ===================== -->
+  <section id="reserveren">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <p class="eyebrow">Reserveren</p>
+        <h2>Vul je briefje in.</h2>
+        <p class="lede">Tel op wat je nodig hebt, laat je gegevens achter en verstuur. De prijs die je ziet is een richtprijs — je krijgt altijd een bevestiging voor er iets vastligt.</p>
+      </div>
+
+      <form class="order-grid" id="orderForm" novalidate>
+
+        <!-- bestelbriefje -->
+        <div class="slip rise">
+          <div class="slip-head">
+            <h3>Je bestelling</h3>
+            <span>Briefje nr. <span id="slipNr">—</span></span>
+          </div>
+
+          <div class="row" data-item="chairs">
+            <div class="row-name">
+              <b>Beuken klapstoelen</b>
+              <small>max. 60 beschikbaar</small>
+            </div>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Minder klapstoelen">−</button>
+              <input type="number" inputmode="numeric" min="0" max="60" value="0" aria-label="Aantal klapstoelen">
+              <button type="button" data-step="1" aria-label="Meer klapstoelen">+</button>
+            </div>
+            <div class="row-sum">€ 0,00</div>
+          </div>
+
+          <div class="row" data-item="tables">
+            <div class="row-name">
+              <b>Klaptafels</b>
+              <small>max. 20 beschikbaar</small>
+            </div>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Minder tafels">−</button>
+              <input type="number" inputmode="numeric" min="0" max="20" value="0" aria-label="Aantal tafels">
+              <button type="button" data-step="1" aria-label="Meer tafels">+</button>
+            </div>
+            <div class="row-sum">€ 0,00</div>
+          </div>
+
+          <div class="row" data-item="fridge">
+            <div class="row-name">
+              <b>Barkoelkast</b>
+              <small>1 exemplaar</small>
+            </div>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Koelkast weglaten">−</button>
+              <input type="number" inputmode="numeric" min="0" max="1" value="0" aria-label="Aantal koelkasten">
+              <button type="button" data-step="1" aria-label="Koelkast toevoegen">+</button>
+            </div>
+            <div class="row-sum">€ 0,00</div>
+          </div>
+
+          <div class="row" data-item="reel">
+            <div class="row-name">
+              <b>Haspel als statafel</b>
+              <small>1 exemplaar</small>
+            </div>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Haspel weglaten">−</button>
+              <input type="number" inputmode="numeric" min="0" max="1" value="0" aria-label="Aantal haspels">
+              <button type="button" data-step="1" aria-label="Haspel toevoegen">+</button>
+            </div>
+            <div class="row-sum">€ 0,00</div>
+          </div>
+
+          <div class="row" data-item="delivery" id="deliveryRow" hidden>
+            <div class="row-name">
+              <b>Levering en ophaling</b>
+              <small>binnen de regio</small>
+            </div>
+            <div></div>
+            <div class="row-sum">€ 0,00</div>
+          </div>
+
+          <div class="slip-total">
+            <span class="lbl">Richtprijs totaal</span>
+            <span class="val" id="grandTotal">€ 0,00</span>
+          </div>
+          <p class="slip-note">Voor één dag of één weekend, borg niet inbegrepen. Meerdere dagen? Zet het bij je bericht, dan rekenen we een dagtarief door.</p>
+        </div>
+
+        <!-- gegevens -->
+        <div class="form-card rise">
+          <div class="fields">
+
+            <div class="field">
+              <label for="fName">Naam</label>
+              <input id="fName" name="naam" type="text" autocomplete="name" placeholder="Voor- en achternaam" required>
+            </div>
+
+            <div class="field-2">
+              <div class="field">
+                <label for="fMail">E-mail</label>
+                <input id="fMail" name="email" type="email" autocomplete="email" placeholder="jij@voorbeeld.be" required>
+              </div>
+              <div class="field">
+                <label for="fTel">Telefoon</label>
+                <input id="fTel" name="telefoon" type="tel" autocomplete="tel" placeholder="0470 00 00 00">
+              </div>
+            </div>
+
+            <div class="field-2">
+              <div class="field">
+                <label for="fFrom">Nodig vanaf</label>
+                <input id="fFrom" name="van" type="date" required>
+              </div>
+              <div class="field">
+                <label for="fTo">Terug op</label>
+                <input id="fTo" name="tot" type="date">
+              </div>
+            </div>
+
+            <div class="field">
+              <label id="lblLev">Afhalen of leveren</label>
+              <div class="radio-set" role="radiogroup" aria-labelledby="lblLev">
+                <label><input type="radio" name="levering" value="afhalen" checked> Ik haal zelf af</label>
+                <label><input type="radio" name="levering" value="leveren"> Graag geleverd</label>
+              </div>
+            </div>
+
+            <div class="field" id="addrField" hidden>
+              <label for="fAddr">Leveradres</label>
+              <input id="fAddr" name="adres" type="text" autocomplete="street-address" placeholder="Straat, nummer en gemeente">
+            </div>
+
+            <div class="field">
+              <label for="fMsg">Nog iets te melden?</label>
+              <textarea id="fMsg" name="bericht" placeholder="Wat voor feest, hoeveel mensen, een vraag over de uren van afhalen…"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <a class="btn btn-primary" id="mailLink" href="#">Verstuur je aanvraag</a>
+            <button class="btn btn-ghost" id="copyBtn" type="button">Kopieer overzicht</button>
+            <span class="copy-ok" id="copyOk" role="status">Gekopieerd</span>
+          </div>
+
+          <details class="preview">
+            <summary>Bekijk wat je verstuurt</summary>
+            <pre id="mailPreview"></pre>
+          </details>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <hr class="stitch">
+
+  <!-- ===================== PRAKTISCH ===================== -->
+  <section id="praktisch">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <p class="eyebrow">Praktisch</p>
+        <h2>De afspraken, kort.</h2>
+      </div>
+
+      <div class="practical">
+        <dl class="facts rise">
+          <div class="fact">
+            <dt>Afhalen</dt>
+            <dd>Gratis, bij ons thuis in <b data-cfg="plaats">[gemeente]</b>. Alles klapt plat: zestig stoelen en een paar tafels passen in een gewone bestelwagen.</dd>
+          </div>
+          <div class="fact">
+            <dt>Leveren</dt>
+            <dd>Binnen een straal van <b data-cfg="straal">[25]</b> km voor <b data-cfg="leverprijs">[€ 35]</b> heen en terug. Verder weg mag ook — vraag het even.</dd>
+          </div>
+          <div class="fact">
+            <dt>Huurperiode</dt>
+            <dd>Het weekendtarief loopt van vrijdagnamiddag tot maandagvoormiddag. Een losse dag of een hele week kan evengoed.</dd>
+          </div>
+          <div class="fact">
+            <dt>Waarborg</dt>
+            <dd><b data-cfg="borg">[€ 50]</b> in contanten bij afhaling, integraal terug wanneer alles heel terugkomt.</dd>
+          </div>
+          <div class="fact">
+            <dt>Staat van het materiaal</dt>
+            <dd>Het is tweedehands en dat zie je: krassen, verschoten lak, hier en daar een initiaal in het hout. Alles is wel stevig en veilig.</dd>
+          </div>
+          <div class="fact">
+            <dt>Terugbrengen</dt>
+            <dd>Geveegd en droog. Tafellakens en borden zitten er niet bij — die kan je er los bij vragen.</dd>
+          </div>
+        </dl>
+
+        <div class="practical-media rise">
+          <img src="images/gestapelde-stoelen-schuur.jpg" alt="Stapels dichtgeklapte houten stoelen tegen een bakstenen muur in de schuur" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLOT ===================== -->
+  <section class="closer">
+    <div class="wrap closer-in rise">
+      <p class="eyebrow">Nog een vraag?</p>
+      <h2>Bel gerust, dat gaat vaak sneller dan mailen.</h2>
+      <p class="lede">Twijfel je of het past in je wagen, of je genoeg stoelen hebt voor het aantal gasten? Eén telefoontje en we rekenen het samen uit.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" data-cfg-href="tel" href="#">Bel <span data-cfg="telefoon">[0470 00 00 00]</span></a>
+        <a class="btn btn-ghost" data-cfg-href="mail" href="#">Mail ons</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <span>tafelenstoel · verhuur van tafels, stoelen &amp; toebehoren · <span data-cfg="plaats">[gemeente]</span></span>
+      <span><a data-cfg-href="mail" href="#"><span data-cfg="email">[jouw@email.be]</span></a> · <a data-cfg-href="tel" href="#"><span data-cfg="telefoon">[0470 00 00 00]</span></a></span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+/* ============================================================
+   AANPASSEN — alles wat je zelf invult, staat in dit ene blok.
+   Verander de waarden hieronder en de hele pagina volgt mee.
+   ============================================================ */
+const CONFIG = {
+  // Contactgegevens
+  email:    "info@bertgoossens.be",
+  telefoon: "0479 36 94 01",
+  plaats:   "Wechelderzande",
+
+  // Levering
+  straal:      10,      // km rond je gemeente
+  leverprijs:  50,      // euro, heen en terug
+
+  // Waarborg
+  borg: 50,             // euro
+
+  // Prijzen (euro). Stoelen en tafels per stuk per dag,
+  // koelkast en haspel per weekend.
+  prijzen: {
+    chairs: 2.50,
+    tables: 6.00,
+    fridge: 50.00,
+    reel:   15.00
+  },
+
+  // Voorraad — laat staan tenzij je aantal verandert
+  voorraad: { chairs:60, tables:20, fridge:1, reel:1 }
+};
+/* =================== EINDE AANPASSEN ======================= */
+
+
+/* ---------- thema ---------- */
+const root = document.documentElement;
+document.getElementById("themeBtn").addEventListener("click", () => {
+  const explicit = root.getAttribute("data-theme");
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const nowDark = explicit ? explicit === "dark" : systemDark;
+  root.setAttribute("data-theme", nowDark ? "light" : "dark");
+});
+
+/* ---------- config in de pagina zetten ---------- */
+const eur = n => "€ " + n.toLocaleString("nl-BE", {minimumFractionDigits:2, maximumFractionDigits:2});
+const eurShort = n => "€ " + n.toLocaleString("nl-BE", {minimumFractionDigits:0, maximumFractionDigits:0});
+
+const cfgText = {
+  plaats:     CONFIG.plaats,
+  straal:     String(CONFIG.straal),
+  leverprijs: eurShort(CONFIG.leverprijs),
+  borg:       eurShort(CONFIG.borg),
+  telefoon:   CONFIG.telefoon,
+  email:      CONFIG.email
+};
+document.querySelectorAll("[data-cfg]").forEach(el => {
+  const k = el.dataset.cfg;
+  if (cfgText[k] !== undefined) el.textContent = cfgText[k];
+});
+document.querySelectorAll('[data-cfg-href="tel"]').forEach(a => {
+  a.href = "tel:" + CONFIG.telefoon.replace(/\s/g, "");
+});
+document.querySelectorAll('[data-cfg-href="mail"]').forEach(a => {
+  a.href = "mailto:" + CONFIG.email;
+});
+
+/* prijskaartjes in het aanbod */
+const perLabel = { chairs:"per stoel / per dag", tables:"per tafel / per dag", fridge:"per weekend", reel:"per weekend" };
+document.querySelectorAll("[data-price]").forEach(el => {
+  el.textContent = eur(CONFIG.prijzen[el.dataset.price]).replace(/ /g, " ");
+});
+
+/* voorraad in de steppers */
+Object.entries(CONFIG.voorraad).forEach(([key, max]) => {
+  const row = document.querySelector(`.row[data-item="${key}"]`);
+  if (!row) return;
+  const input = row.querySelector("input");
+  if (input) input.max = max;
+  const small = row.querySelector("small");
+  if (small && max > 1) small.textContent = `max. ${max} beschikbaar`;
+});
+
+/* ---------- bestelbriefje ---------- */
+const form        = document.getElementById("orderForm");
+const rows        = [...document.querySelectorAll(".row[data-item]")].filter(r => r.dataset.item !== "delivery");
+const deliveryRow = document.getElementById("deliveryRow");
+const grandTotal  = document.getElementById("grandTotal");
+const mailLink    = document.getElementById("mailLink");
+const mailPreview = document.getElementById("mailPreview");
+const addrField   = document.getElementById("addrField");
+const labels      = { chairs:"Beuken klapstoelen", tables:"Klaptafels", fridge:"Barkoelkast", reel:"Haspel als statafel" };
+
+document.getElementById("slipNr").textContent =
+  new Date().toISOString().slice(2,10).replace(/-/g,"") + "-" + String(Math.floor(Math.random()*900)+100);
+
+function clamp(row){
+  const input = row.querySelector("input");
+  const max = Number(input.max), min = Number(input.min);
+  let v = parseInt(input.value, 10);
+  if (isNaN(v)) v = 0;
+  v = Math.max(min, Math.min(max, v));
+  input.value = v;
+  row.querySelectorAll("button").forEach(b => {
+    const s = Number(b.dataset.step);
+    b.disabled = (s < 0 && v <= min) || (s > 0 && v >= max);
+  });
+  return v;
+}
+
+function delivering(){
+  const r = form.querySelector('input[name="levering"]:checked');
+  return r && r.value === "leveren";
+}
+
+function update(){
+  let total = 0;
+  const lines = [];
+
+  rows.forEach(row => {
+    const key = row.dataset.item;
+    const qty = clamp(row);
+    const sum = qty * CONFIG.prijzen[key];
+    total += sum;
+    row.querySelector(".row-sum").textContent = eur(sum);
+    row.classList.toggle("is-on", qty > 0);
+    if (qty > 0) lines.push(`  ${qty} × ${labels[key]} — ${eur(sum)}`);
+  });
+
+  const lever = delivering();
+  deliveryRow.hidden = !lever;
+  addrField.hidden = !lever;
+  if (lever){
+    total += CONFIG.leverprijs;
+    deliveryRow.querySelector(".row-sum").textContent = eur(CONFIG.leverprijs);
+    deliveryRow.classList.add("is-on");
+    lines.push(`  Levering en ophaling — ${eur(CONFIG.leverprijs)}`);
+  }
+
+  grandTotal.textContent = eur(total);
+  buildMail(lines, total, lever);
+}
+
+function val(id){ return (document.getElementById(id).value || "").trim(); }
+
+function dateNL(v){
+  if (!v) return "";
+  const [y,m,d] = v.split("-");
+  return `${d}/${m}/${y}`;
+}
+
+function buildMail(lines, total, lever){
+  const naam = val("fName") || "—";
+  const van  = dateNL(val("fFrom"));
+  const tot  = dateNL(val("fTo"));
+  const periode = van ? (tot && tot !== van ? `${van} tot ${tot}` : van) : "nog te bepalen";
+
+  const body = [
+    `Dag,`,
+    ``,
+    `Graag zou ik het volgende reserveren:`,
+    ``,
+    lines.length ? lines.join("\n") : "  (nog niets geselecteerd)",
+    ``,
+    `Richtprijs totaal: ${eur(total)}`,
+    ``,
+    `Periode: ${periode}`,
+    lever ? `Levering: graag geleverd op ${val("fAddr") || "[adres nog in te vullen]"}` : `Levering: ik haal zelf af`,
+    ``,
+    `Naam: ${naam}`,
+    `E-mail: ${val("fMail") || "—"}`,
+    `Telefoon: ${val("fTel") || "—"}`,
+    val("fMsg") ? `\nBericht:\n${val("fMsg")}` : ``,
+    ``,
+    `Met vriendelijke groet,`,
+    naam
+  ].filter(l => l !== undefined).join("\n");
+
+  const subject = `Reservatie tafelenstoel${van ? " — " + van : ""}`;
+  mailLink.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  mailPreview.textContent = `Aan: ${CONFIG.email}\nOnderwerp: ${subject}\n\n${body}`;
+}
+
+/* steppers */
+document.querySelectorAll(".stepper button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const row = btn.closest(".row");
+    const input = row.querySelector("input");
+    input.value = (parseInt(input.value,10) || 0) + Number(btn.dataset.step);
+    update();
+  });
+});
+
+form.addEventListener("input", update);
+form.addEventListener("change", update);
+form.addEventListener("submit", e => e.preventDefault());
+
+/* kopieerknop */
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const ok = document.getElementById("copyOk");
+  const text = mailPreview.textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch {}
+    ta.remove();
+  }
+  ok.classList.add("show");
+  setTimeout(() => ok.classList.remove("show"), 2200);
+});
+
+/* datum van vandaag als minimum */
+const today = new Date().toISOString().slice(0,10);
+document.getElementById("fFrom").min = today;
+document.getElementById("fTo").min = today;
+document.getElementById("fFrom").addEventListener("change", e => {
+  document.getElementById("fTo").min = e.target.value || today;
+});
+
+update();
+
+/* ---------- verschijnen bij scrollen ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+  });
+}, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+
+document.querySelectorAll(".rise").forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 70 + "ms";
+  io.observe(el);
+});
+</script>

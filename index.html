@@ -1,3 +1,12 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EDEEE4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131A13" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Verhuur van beuken klapstoelen, klaptafels, een barkoelkast en een haspeltafel. Afhalen of laten leveren in de regio.">
 <title>Tafelenstoel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,8 +96,14 @@
 
 *,*::before,*::after{box-sizing:border-box;}
 
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
 body{
   margin:0;
+  overflow-x:clip;
   background:var(--ground);
   color:var(--ink);
   font-family:var(--f-body);
@@ -110,6 +125,9 @@ h1,h2,h3,h4{
 p{margin:0;}
 img{max-width:100%;display:block;}
 
+/* ankers vrij houden van de plakkende balk */
+:where(section,.hero,main)[id],section[id]{scroll-margin-top:5.5rem;}
+
 a{color:var(--accent-2);text-decoration-thickness:1px;text-underline-offset:3px;}
 a:hover{color:var(--accent);}
 
@@ -122,6 +140,9 @@ a:hover{color:var(--accent);}
 .wrap{
   width:min(var(--wrap),calc(100% - 2.5rem));
   margin-inline:auto;
+}
+@media (max-width:560px){
+  .wrap{width:calc(100% - 2rem);}
 }
 
 .eyebrow{
@@ -184,7 +205,22 @@ a:hover{color:var(--accent);}
   border-bottom:1.5px solid transparent;
 }
 .navlinks a:hover{color:var(--ink);border-bottom-color:var(--wood);}
-@media (max-width:760px){.navlinks{display:none;}}
+
+@media (max-width:760px){
+  .topbar-in{flex-wrap:wrap;gap:.7rem;padding:.6rem 0 0;}
+  .brand{font-size:1.12rem;}
+  .topbar .btn{padding:.55rem .9rem;font-size:.86rem;}
+  .navlinks{
+    order:3;width:100%;
+    gap:1.15rem;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    padding:.15rem 0 .5rem;
+  }
+  .navlinks::-webkit-scrollbar{display:none;}
+  .navlinks a{white-space:nowrap;font-size:.88rem;}
+}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
@@ -207,6 +243,7 @@ a:hover{color:var(--accent);}
 .hero{
   position:relative;
   min-height:min(84vh,760px);
+  min-height:min(84svh,760px);
   display:grid;
   align-items:end;
   overflow:hidden;
@@ -234,7 +271,7 @@ a:hover{color:var(--accent);}
 }
 .hero-in .eyebrow{color:#E2C58E;}
 .hero h1{
-  font-size:clamp(3rem,8.5vw,5.9rem);
+  font-size:clamp(2.35rem,8.5vw,5.9rem);
   font-weight:500;
   letter-spacing:-.03em;
   font-variation-settings:"SOFT" 70,"WONK" 1;
@@ -245,7 +282,7 @@ a:hover{color:var(--accent);}
   font-weight:400;
   color:#E9CE9B;
 }
-.hero p{color:#DEDFCE;font-size:1.12rem;max-width:48ch;}
+.hero p{color:#DEDFCE;font-size:clamp(1.02rem,2.8vw,1.12rem);max-width:48ch;}
 .hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.45rem;}
 .hero .btn-ghost{border-color:rgba(243,242,230,.5);color:#F3F2E6;}
 .hero .btn-ghost:hover{background:rgba(243,242,230,.13);border-color:#F3F2E6;color:#F3F2E6;}
@@ -269,6 +306,23 @@ a:hover{color:var(--accent);}
   color:#F3F2E6;
   font-variant-numeric:tabular-nums;
   line-height:1.2;
+}
+
+@media (max-width:640px){
+  .hero{min-height:min(88svh,660px);}
+  /* tekst staat op mobiel hoger in het beeld, dus donkerder sluieren */
+  .hero-veil{
+    background:linear-gradient(to top,rgba(14,22,14,.90) 0%,rgba(14,22,14,.74) 42%,rgba(14,22,14,.52) 72%,rgba(14,22,14,.46) 100%);
+  }
+  .hero-in .eyebrow{letter-spacing:.12em;}
+  .hero-in{padding:2.4rem 0 2.5rem;gap:.95rem;}
+  .hero-stock{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;}
+  .hero-stock div{padding:.7rem 0;font-size:.82rem;}
+  .hero-stock b{font-size:1.4rem;}
+}
+@media (max-width:420px){
+  .hero-cta{display:grid;grid-template-columns:1fr;gap:.55rem;}
+  .hero-cta .btn{width:100%;}
 }
 
 /* ======================= SECTIES ======================= */
@@ -296,6 +350,13 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   border-color:var(--line-warm);
 }
 .good-media{position:relative;aspect-ratio:4/5;background:var(--ground-2);}
+@media (max-width:560px){
+  .goods{gap:1.1rem;}
+  .good-media{aspect-ratio:4/3;}
+  /* absoluut, anders bepaalt de eigen hoogte van de foto de verhouding */
+  .good-media img{position:absolute;inset:0;}
+  .good-body{padding:1.1rem 1.15rem 1.25rem;}
+}
 .good-media img{width:100%;height:100%;object-fit:cover;}
 .qty{
   position:absolute;top:.85rem;left:.85rem;
@@ -358,7 +419,7 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   gap:2.2rem;
   align-items:start;
 }
-@media (max-width:900px){.order-grid{grid-template-columns:1fr;}}
+@media (max-width:900px){.order-grid{grid-template-columns:1fr;gap:1.6rem;}}
 
 .slip{
   position:relative;
@@ -389,6 +450,21 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   border-bottom:1px dashed var(--line);
 }
 .row:last-of-type{border-bottom:0;}
+.row[hidden]{display:none;}
+
+/* op smalle schermen: naam op zijn eigen regel, teller en bedrag eronder */
+@media (max-width:560px){
+  .slip{padding:1.3rem 1.1rem 1.2rem;}
+  .row{
+    grid-template-columns:1fr auto;
+    gap:.55rem .8rem;
+    padding:.85rem 0;
+  }
+  .row-name{grid-column:1/-1;}
+  .stepper{justify-self:start;}
+  .row-sum{justify-self:end;}
+  .slip-total .val{font-size:1.85rem;}
+}
 .row-name{display:grid;gap:.1rem;min-width:0;}
 .row-name b{font-weight:700;font-size:1rem;}
 .row-name small{color:var(--ink-3);font-size:.8rem;font-variant-numeric:tabular-nums;}
@@ -409,6 +485,10 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
 .stepper button:hover:not(:disabled){background:var(--wood-soft);border-color:var(--wood);}
 .stepper button:active:not(:disabled){transform:scale(.92);}
 .stepper button:disabled{opacity:.34;cursor:not-allowed;}
+@media (max-width:760px){
+  .stepper button{width:2.75rem;height:2.75rem;font-size:1.2rem;}
+  .stepper input{width:3rem;font-size:1.05rem;}
+}
 .stepper input{
   width:3.3rem;text-align:center;
   font-family:var(--f-body);font-size:1rem;font-weight:700;
@@ -453,8 +533,10 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   border-radius:var(--r-l);
   padding:1.7rem 1.6rem;
 }
+@media (max-width:560px){.form-card{padding:1.3rem 1.1rem;}}
 .fields{display:grid;gap:1.05rem;}
 .field{display:grid;gap:.34rem;}
+.field[hidden]{display:none;}
 .field label{
   font-size:.76rem;font-weight:700;
   letter-spacing:.13em;text-transform:uppercase;
@@ -496,6 +578,11 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
 
 .form-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.3rem;align-items:center;}
 .copy-ok{font-size:.85rem;color:var(--accent-2);font-weight:700;opacity:0;transition:opacity .2s;}
+@media (max-width:520px){
+  .form-actions{display:grid;grid-template-columns:1fr;gap:.55rem;}
+  .form-actions .btn{width:100%;}
+  .copy-ok{text-align:center;min-height:1.2rem;}
+}
 .copy-ok.show{opacity:1;}
 
 .preview{
@@ -550,6 +637,8 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   box-shadow:0 18px 40px -22px rgb(var(--shadow)/var(--shadow-a2));
 }
 .practical-media img{width:100%;height:100%;object-fit:cover;}
+@media (max-width:860px){.practical{gap:1.8rem;}}
+@media (max-width:560px){.practical-media{aspect-ratio:3/2;}}
 
 /* --- slotband --- */
 .closer{
@@ -567,6 +656,9 @@ footer{padding:2.6rem 0 3.4rem;}
   font-size:.88rem;color:var(--ink-3);
 }
 .foot a{color:var(--ink-2);}
+@media (max-width:560px){
+  .foot{flex-direction:column;gap:.5rem;}
+}
 
 /* --- thema-schakelaar --- */
 .theme-btn{
@@ -585,11 +677,14 @@ footer{padding:2.6rem 0 3.4rem;}
 .rise.in{opacity:1;transform:none;}
 
 @media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
   .rise{opacity:1;transform:none;}
   .hero-img{animation:none;}
 }
 </style>
+</head>
+<body>
 
 <header class="topbar">
   <div class="wrap topbar-in">
@@ -613,7 +708,7 @@ footer{padding:2.6rem 0 3.4rem;}
 
   <!-- ===================== HERO ===================== -->
   <div class="hero">
-    <img class="hero-img" src="images/hero-tafel-klapstoelen.jpg" alt="Lange gedekte tafel met houten klapstoelen onder een treurwilg in de tuin">
+    <img class="hero-img" src="images/hero-tafel-klapstoelen.jpg" fetchpriority="high" decoding="async" alt="Lange gedekte tafel met houten klapstoelen onder een treurwilg in de tuin">
     <div class="hero-veil"></div>
     <div class="wrap hero-in">
       <p class="eyebrow">Verhuur · tafels, stoelen &amp; toebehoren</p>
@@ -1192,3 +1287,6 @@ document.querySelectorAll(".rise").forEach((el, i) => {
   io.observe(el);
 });
 </script>
+
+</body>
+</html>

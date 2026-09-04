@@ -571,9 +571,13 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   letter-spacing:0;text-transform:none;color:var(--ink-2);
   transition:border-color .15s,background .15s,color .15s;
 }
-.radio-set input{accent-color:var(--accent);margin:0;}
+.radio-set input{accent-color:var(--accent);margin:0;width:auto;flex:0 0 auto;}
 .radio-set label:has(input:checked){
   border-color:var(--accent);background:var(--accent-soft);color:var(--ink);
+}
+@media (max-width:520px){
+  .radio-set{display:grid;grid-template-columns:1fr;gap:.5rem;}
+  .radio-set label{justify-content:center;padding:.62rem .9rem;}
 }
 
 .form-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.3rem;align-items:center;}

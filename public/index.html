@@ -32,6 +32,7 @@
   "description": "Verhuur van beuken klapstoelen, klaptafels, een barkoelkast en een haspel-statafel voor feesten en evenementen. Afhalen of laten leveren in de regio.",
   "url": "https://tafelenstoelverhuur.be/",
   "image": "https://tafelenstoelverhuur.be/images/og-image.jpg",
+  "vatID": "BE0695797925",
   "telephone": "+32479369401",
   "email": "info@tafelenstoelverhuur.be",
   "address": {
@@ -400,6 +401,7 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   .good-media img{position:absolute;inset:0;}
   .good-body{padding:1.1rem 1.15rem 1.25rem;}
 }
+.good-media picture,.practical-media picture{display:contents;}
 .good-media img{width:100%;height:100%;object-fit:cover;}
 .qty{
   position:absolute;top:.85rem;left:.85rem;
@@ -636,6 +638,7 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
 .form-msg.err{color:var(--ink);}
 .btn[disabled]{opacity:.6;cursor:wait;}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.form-note{margin:.9rem 0 0;font-size:.85rem;color:var(--ink-3);}
 
 .preview{
   margin-top:1.2rem;
@@ -792,7 +795,7 @@ footer{padding:2.6rem 0 3.4rem;}
 
         <article class="good rise">
           <div class="good-media">
-            <img src="images/houten-klapstoel-gras.jpg" alt="Houten klapstoel met gebogen zitting op het gras" loading="lazy">
+            <picture><source type="image/webp" srcset="images/houten-klapstoel-gras-600.webp 600w, images/houten-klapstoel-gras-1000.webp 1000w" sizes="(max-width: 640px) 100vw, 400px"><img src="images/houten-klapstoel-gras.jpg" alt="Houten klapstoel met gebogen zitting op het gras" width="1125" height="1500" loading="lazy" decoding="async"></picture>
             <span class="qty">60 stuks</span>
           </div>
           <div class="good-body">
@@ -807,7 +810,7 @@ footer{padding:2.6rem 0 3.4rem;}
 
         <article class="good rise">
           <div class="good-media">
-            <img src="images/gedekte-tafel-blauwe-bloemen.jpg" alt="Gedekte tafel met wit tafellaken en borden met blauwe bloemen" loading="lazy">
+            <picture><source type="image/webp" srcset="images/gedekte-tafel-blauwe-bloemen-600.webp 600w, images/gedekte-tafel-blauwe-bloemen-1000.webp 1000w" sizes="(max-width: 640px) 100vw, 400px"><img src="images/gedekte-tafel-blauwe-bloemen.jpg" alt="Gedekte tafel met wit tafellaken en borden met blauwe bloemen" width="1125" height="1500" loading="lazy" decoding="async"></picture>
             <span class="qty">20 stuks</span>
           </div>
           <div class="good-body">
@@ -822,7 +825,7 @@ footer{padding:2.6rem 0 3.4rem;}
 
         <article class="good rise">
           <div class="good-media">
-            <img src="images/barkoelkast.jpg" alt="Zwarte barkoelkast met drie glazen deuren, gevuld met flesjes" loading="lazy">
+            <picture><source type="image/webp" srcset="images/barkoelkast-600.webp 600w, images/barkoelkast-1000.webp 1000w" sizes="(max-width: 640px) 100vw, 400px"><img src="images/barkoelkast.jpg" alt="Zwarte barkoelkast met drie glazen deuren, gevuld met flesjes" width="1500" height="1125" loading="lazy" decoding="async"></picture>
             <span class="qty">1 stuk</span>
           </div>
           <div class="good-body">
@@ -837,7 +840,7 @@ footer{padding:2.6rem 0 3.4rem;}
 
         <article class="good rise">
           <div class="good-media">
-            <img src="images/statafel-kabelhaspel.jpg" alt="Ronde statafel gemaakt van een houten kabelhaspel met bloemen en glazen" loading="lazy">
+            <picture><source type="image/webp" srcset="images/statafel-kabelhaspel-600.webp 600w, images/statafel-kabelhaspel-1000.webp 1000w" sizes="(max-width: 640px) 100vw, 400px"><img src="images/statafel-kabelhaspel.jpg" alt="Ronde statafel gemaakt van een houten kabelhaspel met bloemen en glazen" width="1125" height="1500" loading="lazy" decoding="async"></picture>
             <span class="qty">1 stuk</span>
           </div>
           <div class="good-body">
@@ -966,7 +969,7 @@ footer{padding:2.6rem 0 3.4rem;}
             <span class="lbl">Richtprijs totaal</span>
             <span class="val" id="grandTotal">€ 0,00</span>
           </div>
-          <p class="slip-note">Voor één dag of één weekend, borg niet inbegrepen. Meerdere dagen? Zet het bij je bericht, dan rekenen we een dagtarief door.</p>
+          <p class="slip-note">Prijs voor één dag of één weekend (vrijdag tot maandag). Elke extra dag kost 50% bovenop. Borg niet inbegrepen.</p>
         </div>
 
         <!-- gegevens -->
@@ -1033,6 +1036,8 @@ footer{padding:2.6rem 0 3.4rem;}
           </div>
           <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
 
+          <p class="form-note">We gebruiken je gegevens enkel om je aanvraag te beantwoorden. Lees onze <a href="/privacy.html">privacyverklaring</a>.</p>
+
           <details class="preview">
             <summary>Bekijk wat je verstuurt</summary>
             <pre id="mailPreview"></pre>
@@ -1065,7 +1070,7 @@ footer{padding:2.6rem 0 3.4rem;}
           </div>
           <div class="fact">
             <dt>Huurperiode</dt>
-            <dd>Het weekendtarief loopt van vrijdagnamiddag tot maandagvoormiddag. Een losse dag of een hele week kan evengoed.</dd>
+            <dd>Een weekend, van vrijdagnamiddag tot maandagvoormiddag, telt als één dag. Elke extra dag kost 50% van de dagprijs bovenop. Een losse dag of een hele week kan evengoed.</dd>
           </div>
           <div class="fact">
             <dt>Waarborg</dt>
@@ -1082,7 +1087,7 @@ footer{padding:2.6rem 0 3.4rem;}
         </dl>
 
         <div class="practical-media rise">
-          <img src="images/gestapelde-stoelen-schuur.jpg" alt="Stapels dichtgeklapte houten stoelen tegen een bakstenen muur in de schuur" loading="lazy">
+          <picture><source type="image/webp" srcset="images/gestapelde-stoelen-schuur-600.webp 600w, images/gestapelde-stoelen-schuur-1000.webp 1000w" sizes="(max-width: 860px) 100vw, 560px"><img src="images/gestapelde-stoelen-schuur.jpg" alt="Stapels dichtgeklapte houten stoelen tegen een bakstenen muur in de schuur" width="1500" height="1125" loading="lazy" decoding="async"></picture>
         </div>
       </div>
     </div>
@@ -1103,7 +1108,7 @@ footer{padding:2.6rem 0 3.4rem;}
 
   <footer>
     <div class="wrap foot">
-      <span>tafelenstoel · verhuur van tafels, stoelen &amp; toebehoren · <span data-cfg="plaats">Wechelderzande</span></span>
+      <span>tafelenstoel · verhuur van tafels, stoelen &amp; toebehoren · <span data-cfg="plaats">Wechelderzande</span> · btw BE 0695.797.925 · <a href="/privacy.html">Privacy</a></span>
       <span><a data-cfg-href="mail" href="mailto:info@tafelenstoelverhuur.be"><span data-cfg="email">info@tafelenstoelverhuur.be</span></a> · <a data-cfg-href="tel" href="tel:0479369401"><span data-cfg="telefoon">0479 36 94 01</span></a></span>
     </div>
   </footer>
@@ -1224,19 +1229,41 @@ function delivering(){
   return r && r.value === "leveren";
 }
 
+/* Huurdagen: elke kalenderdag tussen "nodig vanaf" en "terug op" is een dag, maar vrijdag,
+   zaterdag en zondag van hetzelfde weekend tellen samen als één dag. Zonder einddatum: 1 dag. */
+function rentalDays(from, to){
+  if (!from || !to || to <= from) return 1;
+  const start = new Date(from + "T00:00:00Z"), end = new Date(to + "T00:00:00Z");
+  const units = new Set();
+  for (let d = start; d < end; d = new Date(d.getTime() + 86400000)){
+    const dow = d.getUTCDay(); // 0 = zondag, 5 = vrijdag, 6 = zaterdag
+    if (dow === 5 || dow === 6 || dow === 0){
+      const friday = new Date(d.getTime() - ((dow + 2) % 7) * 86400000);
+      units.add("weekend " + friday.toISOString().slice(0,10));
+    } else {
+      units.add(d.toISOString().slice(0,10));
+    }
+  }
+  return Math.max(1, units.size);
+}
+
 function update(){
   let total = 0;
   const lines = [];
+  const days = rentalDays(val("fFrom"), val("fTo"));
+  const factor = 1 + 0.5 * (days - 1); // eerste dag (of weekend) volle prijs, elke extra dag +50%
 
   rows.forEach(row => {
     const key = row.dataset.item;
     const qty = clamp(row);
-    const sum = qty * CONFIG.prijzen[key];
+    const sum = qty * CONFIG.prijzen[key] * factor;
     total += sum;
     row.querySelector(".row-sum").textContent = eur(sum);
     row.classList.toggle("is-on", qty > 0);
     if (qty > 0) lines.push(`  ${qty} × ${labels[key]} — ${eur(sum)}`);
   });
+
+  if (days > 1 && lines.length) lines.push(`  (${days} huurdagen: eerste dag volle prijs, elke extra dag +50%)`);
 
   const lever = delivering();
   deliveryRow.hidden = !lever;

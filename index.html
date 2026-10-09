@@ -964,7 +964,7 @@ footer{padding:2.6rem 0 3.4rem;}
             <span class="lbl">Richtprijs totaal</span>
             <span class="val" id="grandTotal">€ 0,00</span>
           </div>
-          <p class="slip-note">Voor één dag of één weekend, borg niet inbegrepen. Meerdere dagen? Zet het bij je bericht, dan rekenen we een dagtarief door.</p>
+          <p class="slip-note">Prijs voor één dag of één weekend (vrijdag tot maandag). Elke extra dag kost 50% bovenop. Borg niet inbegrepen.</p>
         </div>
 
         <!-- gegevens -->
@@ -1058,7 +1058,7 @@ footer{padding:2.6rem 0 3.4rem;}
           </div>
           <div class="fact">
             <dt>Huurperiode</dt>
-            <dd>Het weekendtarief loopt van vrijdagnamiddag tot maandagvoormiddag. Een losse dag of een hele week kan evengoed.</dd>
+            <dd>Een weekend, van vrijdagnamiddag tot maandagvoormiddag, telt als één dag. Elke extra dag kost 50% van de dagprijs bovenop. Een losse dag of een hele week kan evengoed.</dd>
           </div>
           <div class="fact">
             <dt>Waarborg</dt>
@@ -1216,19 +1216,41 @@ function delivering(){
   return r && r.value === "leveren";
 }
 
+/* Huurdagen: elke kalenderdag tussen "nodig vanaf" en "terug op" is een dag, maar vrijdag,
+   zaterdag en zondag van hetzelfde weekend tellen samen als één dag. Zonder einddatum: 1 dag. */
+function rentalDays(from, to){
+  if (!from || !to || to <= from) return 1;
+  const start = new Date(from + "T00:00:00Z"), end = new Date(to + "T00:00:00Z");
+  const units = new Set();
+  for (let d = start; d < end; d = new Date(d.getTime() + 86400000)){
+    const dow = d.getUTCDay(); // 0 = zondag, 5 = vrijdag, 6 = zaterdag
+    if (dow === 5 || dow === 6 || dow === 0){
+      const friday = new Date(d.getTime() - ((dow + 2) % 7) * 86400000);
+      units.add("weekend " + friday.toISOString().slice(0,10));
+    } else {
+      units.add(d.toISOString().slice(0,10));
+    }
+  }
+  return Math.max(1, units.size);
+}
+
 function update(){
   let total = 0;
   const lines = [];
+  const days = rentalDays(val("fFrom"), val("fTo"));
+  const factor = 1 + 0.5 * (days - 1); // eerste dag (of weekend) volle prijs, elke extra dag +50%
 
   rows.forEach(row => {
     const key = row.dataset.item;
     const qty = clamp(row);
-    const sum = qty * CONFIG.prijzen[key];
+    const sum = qty * CONFIG.prijzen[key] * factor;
     total += sum;
     row.querySelector(".row-sum").textContent = eur(sum);
     row.classList.toggle("is-on", qty > 0);
     if (qty > 0) lines.push(`  ${qty} × ${labels[key]} — ${eur(sum)}`);
   });
+
+  if (days > 1 && lines.length) lines.push(`  (${days} huurdagen: eerste dag volle prijs, elke extra dag +50%)`);
 
   const lever = delivering();
   deliveryRow.hidden = !lever;

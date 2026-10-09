@@ -39,7 +39,7 @@ test('met sleutel: mail met het bestelbriefje, antwoordadres van de klant', asyn
     const res = await post(base, valid);
     assert.equal(res.status, 200);
     assert.equal(sent.length, 1);
-    assert.equal(sent[0].to, 'info@bertgoossens.be');
+    assert.equal(sent[0].to, 'info@tafelenstoelverhuur.be');
     assert.equal(sent[0].replyTo, 'jan@example.com');
     assert.match(sent[0].subject, /12\/06\/2027 – Jan Peeters/);
     assert.match(sent[0].text, /20 × Beuken klapstoelen/);

@@ -19,7 +19,7 @@ Het formulier stuurt aanvragen naar `POST /api/bestelling`, dat ze mailt via Res
 Zet daarvoor op Render:
 
 - `RESEND_API_KEY` = je Resend API-sleutel
-- `ORDER_TO` (optioneel) = ontvanger, standaard `info@bertgoossens.be`
+- `ORDER_TO` (optioneel) = ontvanger, standaard `info@tafelenstoelverhuur.be`
 - `ORDER_FROM` (optioneel) = afzender, standaard `Tafel & Stoel <website@tafelenstoelverhuur.be>`
   (het domein moet geverifieerd zijn in Resend)
 

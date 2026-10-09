@@ -3,7 +3,7 @@
 //
 // Omgevingsvariabelen:
 //   RESEND_API_KEY   API-sleutel van Resend (verplicht om te mailen)
-//   ORDER_TO         ontvanger, standaard info@bertgoossens.be
+//   ORDER_TO         ontvanger, standaard info@tafelenstoelverhuur.be
 //   ORDER_FROM       afzender (domein moet geverifieerd zijn in Resend),
 //                    standaard "Tafel & Stoel <website@tafelenstoelverhuur.be>"
 const express = require('express');
@@ -76,7 +76,7 @@ module.exports = function registerBestelling(app, { env = process.env, send = se
       await send({
         apiKey: env.RESEND_API_KEY,
         from: env.ORDER_FROM || 'Tafel & Stoel <website@tafelenstoelverhuur.be>',
-        to: env.ORDER_TO || 'info@bertgoossens.be',
+        to: env.ORDER_TO || 'info@tafelenstoelverhuur.be',
         replyTo: data.email,
         subject: `Reservatie tafelenstoel – ${fmtDate(data.from)} – ${data.name}`,
         text: 'Nieuwe aanvraag via tafelenstoelverhuur.be\n\n' + data.summary,

@@ -631,6 +631,11 @@ section{padding:clamp(3.4rem,7vw,5.6rem) 0;}
   .copy-ok{text-align:center;min-height:1.2rem;}
 }
 .copy-ok.show{opacity:1;}
+.form-msg{margin:.9rem 0 0;font-size:.92rem;font-weight:700;color:var(--accent-2);}
+.form-msg:empty{display:none;}
+.form-msg.err{color:var(--ink);}
+.btn[disabled]{opacity:.6;cursor:wait;}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
 
 .preview{
   margin-top:1.2rem;
@@ -1013,13 +1018,20 @@ footer{padding:2.6rem 0 3.4rem;}
               <textarea id="fMsg" name="bericht" placeholder="Wat voor feest, hoeveel mensen, een vraag over de uren van afhalen…"></textarea>
             </div>
 
+            <!-- Honeypot tegen spambots: mensen zien dit veld niet. -->
+            <div class="hp" aria-hidden="true">
+              <label for="fWebsite">Website</label>
+              <input id="fWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
           </div>
 
           <div class="form-actions">
-            <a class="btn btn-primary" id="mailLink" href="#">Verstuur je aanvraag</a>
+            <button class="btn btn-primary" id="sendBtn" type="submit">Verstuur je aanvraag</button>
             <button class="btn btn-ghost" id="copyBtn" type="button">Kopieer overzicht</button>
             <span class="copy-ok" id="copyOk" role="status">Gekopieerd</span>
           </div>
+          <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
 
           <details class="preview">
             <summary>Bekijk wat je verstuurt</summary>
@@ -1184,7 +1196,8 @@ const form        = document.getElementById("orderForm");
 const rows        = [...document.querySelectorAll(".row[data-item]")].filter(r => r.dataset.item !== "delivery");
 const deliveryRow = document.getElementById("deliveryRow");
 const grandTotal  = document.getElementById("grandTotal");
-const mailLink    = document.getElementById("mailLink");
+const sendBtn     = document.getElementById("sendBtn");
+const formMsg     = document.getElementById("formMsg");
 const mailPreview = document.getElementById("mailPreview");
 const addrField   = document.getElementById("addrField");
 const labels      = { chairs:"Beuken klapstoelen", tables:"Klaptafels", fridge:"Barkoelkast", reel:"Haspel als statafel" };
@@ -1247,6 +1260,8 @@ function dateNL(v){
   return `${d}/${m}/${y}`;
 }
 
+let mailBody = "", mailtoHref = "";
+
 function buildMail(lines, total, lever){
   const naam = val("fName") || "—";
   const van  = dateNL(val("fFrom"));
@@ -1275,7 +1290,8 @@ function buildMail(lines, total, lever){
   ].filter(l => l !== undefined).join("\n");
 
   const subject = `Reservatie tafelenstoel${van ? " — " + van : ""}`;
-  mailLink.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  mailBody = body;
+  mailtoHref = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   mailPreview.textContent = `Aan: ${CONFIG.email}\nOnderwerp: ${subject}\n\n${body}`;
 }
 
@@ -1291,7 +1307,50 @@ document.querySelectorAll(".stepper button").forEach(btn => {
 
 form.addEventListener("input", update);
 form.addEventListener("change", update);
-form.addEventListener("submit", e => e.preventDefault());
+/* versturen: rechtstreeks via /api/bestelling, met de mailto-link als reserve */
+function showMsg(text, ok){
+  formMsg.className = "form-msg" + (ok ? "" : " err");
+  formMsg.textContent = text;
+}
+
+function mailtoFallback(){
+  showMsg("We openen je mailprogramma met de aanvraag al ingevuld — druk daar nog op verzenden.", true);
+  window.location.href = mailtoHref;
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  update();
+  const bad = [];
+  if (val("fName").length < 2) bad.push("fName");
+  if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(val("fMail"))) bad.push("fMail");
+  if (!val("fFrom")) bad.push("fFrom");
+  if (bad.length){
+    document.getElementById(bad[0]).focus();
+    return showMsg("Vul je naam, een geldig e-mailadres en de datum in.", false);
+  }
+
+  sendBtn.disabled = true;
+  showMsg("Bezig met versturen…", true);
+  try {
+    const r = await fetch("/api/bestelling", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: val("fName"), email: val("fMail"), phone: val("fTel"),
+        from: val("fFrom"), summary: mailBody, website: val("fWebsite")
+      })
+    });
+    if (r.ok) showMsg("Bedankt! Je aanvraag is verstuurd. We bevestigen zo snel mogelijk per mail.", true);
+    else if (r.status === 429) showMsg("Je hebt al enkele aanvragen verstuurd. Probeer later opnieuw of bel ons even.", false);
+    else if (r.status === 400) showMsg("Vul je naam, een geldig e-mailadres en de datum in.", false);
+    else mailtoFallback();
+  } catch {
+    mailtoFallback();
+  } finally {
+    sendBtn.disabled = false;
+  }
+});
 
 /* kopieerknop */
 document.getElementById("copyBtn").addEventListener("click", async () => {
